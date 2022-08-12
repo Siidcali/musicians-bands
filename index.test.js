@@ -1,5 +1,5 @@
 const {db} = require('./db');
-const {Band, Musician} = require('./index')
+const {Band, Musician,Song} = require('./index');
 
 describe('Band and Musician Models', () => {
     /**
@@ -44,8 +44,26 @@ describe('Band and Musician Models', () => {
             name:'Beatles',
             genre:'rock'
         })
-        band1.setMusician(music1)
+         band1.setMusician(music1)
+
         const owners=await band1.getMusician({where:{name:'john'}})
         expect(owners.name).toEqual('john');
     })
+    test('can have songs attached to bands', async () => {
+       const song1= await Song.create({
+             title:'s1',
+             year:2001
+        })
+     
+        const band1=await Band.create({
+             name:'Beatles',
+             genre:'rock'
+         })
+          await band1.addSong(song1)
+
+         
+         const test1=await band1.getSongs()
+        console.log(test1)
+         expect(test1.title).toEqual('s1');
+     })
 })
