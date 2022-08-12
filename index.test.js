@@ -29,4 +29,23 @@ describe('Band and Musician Models', () => {
         })
         expect(music1.name).toEqual('john');
     })
+
+
+    test('can have musicians in a band', async () => {
+       music1= await Musician.create({
+            name:'john',
+            instruments:'flute'
+        })
+        music2= await Musician.create({
+            name:'bob',
+            instruments:'drum'
+        })
+        band1=await Band.create({
+            name:'Beatles',
+            genre:'rock'
+        })
+        band1.setMusician(music1)
+        const owners=await band1.getMusician({where:{name:'john'}})
+        expect(owners.name).toEqual('john');
+    })
 })
