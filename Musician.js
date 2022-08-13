@@ -3,7 +3,7 @@ const {Sequelize, DataTypes} = require('sequelize');
 
 
 // TODO - define the Musician model
-let Musician=db.define('Musician',{
+let Musician = db.define('Musician',{
     name:{
         type:DataTypes.STRING
     },
